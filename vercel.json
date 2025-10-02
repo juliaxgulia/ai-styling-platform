@@ -1,0 +1,50 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "AWS_REGION": "@aws_region",
+    "AWS_ACCESS_KEY_ID": "@aws_access_key_id", 
+    "AWS_SECRET_ACCESS_KEY": "@aws_secret_access_key",
+    "DYNAMODB_TABLE_NAME": "@dynamodb_table_name",
+    "S3_BUCKET_NAME": "@s3_bucket_name",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "NEXTAUTH_URL": "@nextauth_url"
+  },
+  "build": {
+    "env": {
+      "AWS_REGION": "@aws_region",
+      "AWS_ACCESS_KEY_ID": "@aws_access_key_id",
+      "AWS_SECRET_ACCESS_KEY": "@aws_secret_access_key", 
+      "DYNAMODB_TABLE_NAME": "@dynamodb_table_name",
+      "S3_BUCKET_NAME": "@s3_bucket_name",
+      "NEXTAUTH_SECRET": "@nextauth_secret",
+      "NEXTAUTH_URL": "@nextauth_url"
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods", 
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ]
+}
