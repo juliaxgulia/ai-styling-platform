@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-8">
@@ -8,6 +11,20 @@ export default function Home() {
         <p className="text-lg text-gray-600 mb-8">
           Discover your unique style through conversational AI and personalized analysis.
         </p>
+        
+        <div className="flex gap-4 justify-center mb-8">
+          <Link href="/login">
+            <Button size="lg" className="px-8">
+              Get Started
+            </Button>
+          </Link>
+          <Link href="/demo">
+            <Button variant="outline" size="lg" className="px-8">
+              View Demo
+            </Button>
+          </Link>
+        </div>
+
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
             Project Setup Complete ✅
