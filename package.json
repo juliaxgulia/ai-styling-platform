@@ -21,6 +21,7 @@
     "deploy:prod": "vercel --prod",
     "health:check": "curl -f $NEXTAUTH_URL/api/health || exit 1",
     "aws:setup": "node scripts/aws-setup.js",
+    "db:setup": "node scripts/setup-dynamodb.js",
     "db:migrate": "node scripts/db-migrate.js",
     "security:audit": "npm audit --audit-level=moderate",
     "security:scan": "npm run security:audit && npm run test:security"

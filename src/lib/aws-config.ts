@@ -31,6 +31,6 @@ export const s3Client = new S3Client({
 });
 
 // Configuration constants
-export const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME || 'ai-styling-platform';
+export const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME || 'ai-styling-platform-prod';
 export const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME || 'ai-styling-platform-images';
 export const BEDROCK_MODEL_ID = 'anthropic.claude-3-haiku-20240307-v1:0';
