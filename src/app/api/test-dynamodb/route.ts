@@ -28,8 +28,8 @@ export async function GET(request: NextRequest) {
     // Test the update operation that's failing
     const updateData = {
       conversationHistory: [
-        { role: 'user', content: 'Hello', timestamp: new Date().toISOString() },
-        { role: 'assistant', content: 'Hi there!', timestamp: new Date().toISOString() }
+        { role: 'user' as const, content: 'Hello', timestamp: new Date().toISOString() },
+        { role: 'assistant' as const, content: 'Hi there!', timestamp: new Date().toISOString() }
       ],
       extractedData: { emotions: ['confident'] },
       currentStep: 'emotions',
