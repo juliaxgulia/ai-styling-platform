@@ -25,13 +25,30 @@ export async function GET(request: NextRequest) {
     // Try to retrieve it
     const retrieved = await dynamoService.getOnboardingSession(testUserId, testSessionId);
     
+    // Test the update operation that's failing
+    const updateData = {
+      conversationHistory: [
+        { role: 'user', content: 'Hello', timestamp: new Date().toISOString() },
+        { role: 'assistant', content: 'Hi there!', timestamp: new Date().toISOString() }
+      ],
+      extractedData: { emotions: ['confident'] },
+      currentStep: 'emotions',
+      isComplete: false,
+    };
+    
+    await dynamoService.updateOnboardingSession(testUserId, testSessionId, updateData);
+    
+    // Retrieve again to verify update worked
+    const updatedSession = await dynamoService.getOnboardingSession(testUserId, testSessionId);
+    
     return NextResponse.json({
       success: true,
       message: 'DynamoDB connection working',
       tableName: process.env.DYNAMODB_TABLE_NAME || 'ai-styling-platform-prod',
       testData: {
         created: testSession,
-        retrieved: retrieved
+        retrieved: retrieved,
+        updated: updatedSession
       },
       timestamp: new Date().toISOString()
     });
