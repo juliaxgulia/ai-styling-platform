@@ -59,10 +59,8 @@ export async function PUT(request: NextRequest) {
 
     // Validate preferences data
     const validation = validateUserPreferences(preferences);
-    if (!validation.isValid) {
-      return createErrorResponse('Invalid preferences data', 400, {
-        validationErrors: validation.errors
-      });
+    if (!validation.valid) {
+      return createErrorResponse('Invalid preferences data', 400, 'VALIDATION_ERROR');
     }
 
     // Additional validation using preference validation service
@@ -83,9 +81,7 @@ export async function PUT(request: NextRequest) {
     }
 
     if (validationErrors.length > 0) {
-      return createErrorResponse('Invalid preferences data', 400, {
-        validationErrors
-      });
+      return createErrorResponse('Invalid preferences data', 400, 'VALIDATION_ERROR');
     }
 
     // Get existing user profile

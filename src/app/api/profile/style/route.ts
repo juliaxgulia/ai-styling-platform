@@ -48,10 +48,8 @@ export async function PUT(request: NextRequest) {
 
     // Validate style profile data
     const validation = validateStyleProfile(styleProfile);
-    if (!validation.isValid) {
-      return createErrorResponse('Invalid style profile data', 400, {
-        validationErrors: validation.errors
-      });
+    if (!validation.valid) {
+      return createErrorResponse('Invalid style profile data', 400, 'VALIDATION_ERROR');
     }
 
     // Get existing user profile
@@ -64,11 +62,11 @@ export async function PUT(request: NextRequest) {
     const updatedProfile = {
       ...existingProfile,
       styleProfile: {
-        emotions: validation.validData.emotions || [],
-        archetype: validation.validData.archetype || [],
-        essence: validation.validData.essence || [],
-        lifestyle: validation.validData.lifestyle || [],
-        values: validation.validData.values || []
+        emotions: styleProfile.emotions || [],
+        archetype: styleProfile.archetype || [],
+        essence: styleProfile.essence || [],
+        lifestyle: styleProfile.lifestyle || [],
+        values: styleProfile.values || []
       },
       updatedAt: new Date().toISOString()
     };

@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
             bodyShapeConfidence: adjustments?.confidence || analysisResult.results.confidence,
             bodyShapeAnalysisId: analysisId
           };
-        } else if (analysisResult.type === 'color-palette') {
+        } else if (analysisResult.type === 'color-palette' && analysisResult.results.colorPalette) {
           physicalProfileUpdates.physicalProfile = {
             ...userProfile.physicalProfile,
             colorPalette: {
@@ -57,8 +57,7 @@ export async function POST(request: NextRequest) {
               skinTone: adjustments?.skinTone || analysisResult.results.colorPalette.skinTone,
               hairColor: adjustments?.hairColor || analysisResult.results.colorPalette.hairColor,
               eyeColor: adjustments?.eyeColor || analysisResult.results.colorPalette.eyeColor,
-              confidence: adjustments?.confidence || analysisResult.results.confidence,
-              characteristics: analysisResult.results.colorPalette.characteristics
+              confidence: adjustments?.confidence || analysisResult.results.confidence
             },
             colorAnalysisId: analysisId
           };
@@ -110,13 +109,10 @@ export async function GET(request: NextRequest) {
         type: 'body-shape',
         results: {
           bodyShape: analysisResult.results.bodyShape,
-          confidence: analysisResult.results.confidence,
-          reasoning: analysisResult.results.reasoning
+          confidence: analysisResult.results.confidence
         },
         userConfirmed: analysisResult.userConfirmed,
-        userAdjustments: analysisResult.userAdjustments,
         createdAt: analysisResult.createdAt,
-        confirmedAt: analysisResult.confirmedAt,
         adjustmentOptions: getBodyShapeAdjustmentOptions(),
         confidenceThreshold: 0.7
       };
@@ -126,13 +122,10 @@ export async function GET(request: NextRequest) {
         type: 'color-palette',
         results: {
           colorPalette: analysisResult.results.colorPalette,
-          confidence: analysisResult.results.confidence,
-          reasoning: analysisResult.results.reasoning
+          confidence: analysisResult.results.confidence
         },
         userConfirmed: analysisResult.userConfirmed,
-        userAdjustments: analysisResult.userAdjustments,
         createdAt: analysisResult.createdAt,
-        confirmedAt: analysisResult.confirmedAt,
         adjustmentOptions: getColorPaletteAdjustmentOptions(),
         confidenceThreshold: 0.7
       };

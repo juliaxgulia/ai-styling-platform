@@ -46,10 +46,8 @@ export async function PUT(request: NextRequest) {
     // Validate physical profile data if provided
     if (physicalProfile) {
       const validation = validatePhysicalProfile(physicalProfile);
-      if (!validation.isValid) {
-        return createErrorResponse('Invalid physical profile data', 400, {
-          validationErrors: validation.errors
-        });
+      if (!validation.valid) {
+        return createErrorResponse('Invalid physical profile data', 400, 'VALIDATION_ERROR');
       }
     }
 

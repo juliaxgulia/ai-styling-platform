@@ -246,11 +246,9 @@ Be very specific about the palette name - use exactly one of the 12 names listed
                 colors: paletteInfo.colors,
                 skinTone: result.data!.skinTone,
                 hairColor: result.data!.hairColor,
-                eyeColor: result.data!.eyeColor,
-                characteristics: paletteInfo.characteristics
+                eyeColor: result.data!.eyeColor
               },
-              confidence: result.data!.confidence,
-              reasoning: result.data!.reasoning
+              confidence: result.data!.confidence
             },
             userConfirmed: false,
             createdAt: new Date().toISOString()
