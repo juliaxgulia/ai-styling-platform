@@ -33,4 +33,4 @@ export const s3Client = new S3Client({
 // Configuration constants
 export const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME || 'ai-styling-platform';
 export const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME || 'ai-styling-platform-images';
-export const BEDROCK_MODEL_ID = 'anthropic.claude-3-5-sonnet-20241022-v2:0';
+export const BEDROCK_MODEL_ID = 'anthropic.claude-3-5-sonnet-20240620-v1:0';
