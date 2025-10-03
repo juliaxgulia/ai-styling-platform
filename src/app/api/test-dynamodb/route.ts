@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { dynamoService } from '@/lib/dynamodb';
+import { EmotionTag } from '@/types/schemas';
 
 export async function GET(request: NextRequest) {
   try {
@@ -31,7 +32,7 @@ export async function GET(request: NextRequest) {
         { role: 'user' as const, content: 'Hello', timestamp: new Date().toISOString() },
         { role: 'assistant' as const, content: 'Hi there!', timestamp: new Date().toISOString() }
       ],
-      extractedData: { emotions: ['Confident'] },
+      extractedData: { emotions: ['Confident' as EmotionTag] },
       currentStep: 'emotions',
       isComplete: false,
     };
