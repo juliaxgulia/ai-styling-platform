@@ -183,14 +183,14 @@ export function ErrorDisplay({
                 <div><span className="font-semibold">Code:</span> {error.code}</div>
                 <div><span className="font-semibold">Request ID:</span> {error.requestId}</div>
                 <div><span className="font-semibold">Time:</span> {new Date(error.timestamp).toLocaleString()}</div>
-                {error.details && typeof error.details === 'string' && (
+                {error.details ? (
                   <div>
                     <span className="font-semibold">Details:</span>
                     <pre className="mt-1 whitespace-pre-wrap">
-                      {JSON.stringify(error.details, null, 2)}
+                      {typeof error.details === 'string' ? error.details : JSON.stringify(error.details, null, 2)}
                     </pre>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           )}

@@ -487,7 +487,7 @@ export function OnboardingChat({ userId, onComplete, onError }: OnboardingChatPr
                 className="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <Button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 disabled={!inputMessage.trim() || chatState.isLoading}
                 size="icon"
               >

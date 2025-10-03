@@ -14,7 +14,7 @@ import {
   SilhouetteTag,
   ColorPaletteTag,
 } from '@/types/schemas';
-import { StyleProfile, UserPreferences, PhysicalProfile } from '@/types/user';
+import { StyleProfile, UserPreferences, PhysicalProfile, UserProfile } from '@/types/user';
 
 // User authentication validation
 export function validateEmail(email: string): { valid: boolean; error?: string } {
