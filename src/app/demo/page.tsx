@@ -125,6 +125,7 @@ export default function DemoPage() {
           
           {activeDemo === 'onboarding' ? (
             <OnboardingChat
+              userId="demo-user"
               onComplete={(extractedData) => {
                 console.log('Onboarding completed:', extractedData);
                 setCompletedAnalyses(prev => [...prev, { 
