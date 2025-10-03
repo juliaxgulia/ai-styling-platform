@@ -16,9 +16,10 @@ import {
   DatabaseError, 
   ConversationError, 
   SessionExpiredError,
-  AppError 
+  AppError,
+  SessionRecoveryManager
 } from '@/lib/errors';
-import { AIRetryService, SessionRecoveryManager } from '@/lib/retry-service';
+import { AIRetryService } from '@/lib/retry-service';
 
 interface OnboardingChatRequest {
   message: string;
