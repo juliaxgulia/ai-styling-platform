@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
         { role: 'user' as const, content: 'Hello', timestamp: new Date().toISOString() },
         { role: 'assistant' as const, content: 'Hi there!', timestamp: new Date().toISOString() }
       ],
-      extractedData: { emotions: ['confident'] },
+      extractedData: { emotions: ['Confident'] },
       currentStep: 'emotions',
       isComplete: false,
     };
