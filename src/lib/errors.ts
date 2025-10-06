@@ -301,8 +301,19 @@ export interface SessionRecoveryData {
 }
 
 export class SessionRecoveryManager {
+  // Check if we're in a browser environment
+  private static isClient(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
+
   static async saveRecoveryData(data: SessionRecoveryData): Promise<void> {
     try {
+      // Only save recovery data on the client side
+      if (!this.isClient()) {
+        console.warn('SessionRecoveryManager: localStorage not available on server side');
+        return;
+      }
+
       const key = `session_recovery_${data.userId}_${data.sessionType}`;
       localStorage.setItem(key, JSON.stringify({
         ...data,
@@ -315,6 +326,11 @@ export class SessionRecoveryManager {
 
   static async getRecoveryData(userId: string, sessionType: string): Promise<SessionRecoveryData | null> {
     try {
+      // Only get recovery data on the client side
+      if (!this.isClient()) {
+        return null;
+      }
+
       const key = `session_recovery_${userId}_${sessionType}`;
       const data = localStorage.getItem(key);
       
@@ -339,6 +355,11 @@ export class SessionRecoveryManager {
 
   static async clearRecoveryData(userId: string, sessionType: string): Promise<void> {
     try {
+      // Only clear recovery data on the client side
+      if (!this.isClient()) {
+        return;
+      }
+
       const key = `session_recovery_${userId}_${sessionType}`;
       localStorage.removeItem(key);
     } catch (error) {
