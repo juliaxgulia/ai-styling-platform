@@ -4,31 +4,39 @@ import { dynamoService } from '@/lib/dynamodb';
 import { validateAuth } from '@/lib/auth';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function POST(request: NextRequest) {
+async function runDebugTests(request?: NextRequest) {
   const logs: string[] = [];
   
   try {
     logs.push('1. Starting onboarding debug');
     
-    // Test authentication
-    logs.push('2. Testing authentication...');
-    const authResult = await validateAuth(request);
-    if (!authResult.success) {
-      logs.push('2. AUTH FAILED: ' + authResult.error);
-      return NextResponse.json({ success: false, error: 'Authentication failed', logs });
+    // Test authentication (skip if no request provided)
+    let userId = 'debug-test-user';
+    if (request) {
+      logs.push('2. Testing authentication...');
+      const authResult = await validateAuth(request);
+      if (!authResult.success) {
+        logs.push('2. AUTH FAILED: ' + authResult.error);
+        return NextResponse.json({ success: false, error: 'Authentication failed', logs });
+      }
+      logs.push('2. AUTH SUCCESS: User ID = ' + authResult.user.id);
+      userId = authResult.user.id;
+    } else {
+      logs.push('2. SKIPPING AUTH (GET request)');
     }
-    logs.push('2. AUTH SUCCESS: User ID = ' + authResult.user.id);
     
-    const userId = authResult.user.id;
-    
-    // Test user profile exists
+    // Test user profile exists (skip for test user)
     logs.push('3. Checking user profile...');
-    const userProfile = await dynamoService.getUserProfile(userId);
-    if (!userProfile) {
-      logs.push('3. USER PROFILE NOT FOUND');
-      return NextResponse.json({ success: false, error: 'User profile not found', logs });
+    if (userId !== 'debug-test-user') {
+      const userProfile = await dynamoService.getUserProfile(userId);
+      if (!userProfile) {
+        logs.push('3. USER PROFILE NOT FOUND');
+        return NextResponse.json({ success: false, error: 'User profile not found', logs });
+      }
+      logs.push('3. USER PROFILE EXISTS: ' + userProfile.email);
+    } else {
+      logs.push('3. SKIPPING USER PROFILE CHECK (test user)');
     }
-    logs.push('3. USER PROFILE EXISTS: ' + userProfile.email);
     
     // Test session creation
     logs.push('4. Testing session creation...');
@@ -103,4 +111,13 @@ export async function POST(request: NextRequest) {
       }
     }, { status: 500 });
   }
+}
+
+// Export both GET and POST methods
+export async function GET() {
+  return runDebugTests();
+}
+
+export async function POST(request: NextRequest) {
+  return runDebugTests(request);
 }
