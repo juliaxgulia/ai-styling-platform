@@ -310,7 +310,6 @@ export class SessionRecoveryManager {
     try {
       // Only save recovery data on the client side
       if (!this.isClient()) {
-        console.warn('SessionRecoveryManager: localStorage not available on server side');
         return;
       }
 
