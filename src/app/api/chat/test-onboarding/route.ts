@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     // Use a test user ID (no authentication required)
     const userId = 'test-user-' + Date.now();
-    let sessionId = body.sessionId || uuidv4();
+    const sessionId = body.sessionId || uuidv4();
     
     // Get or create session
     let conversationHistory: ConversationMessage[] = [];

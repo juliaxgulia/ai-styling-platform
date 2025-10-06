@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         success: false,
         step: 'token_check',
         error: 'No auth token found in cookies',
-        cookies: Object.fromEntries(request.cookies.entries())
+        cookies: Array.from(request.cookies).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
       });
     }
     
