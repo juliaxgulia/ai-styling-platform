@@ -14,7 +14,7 @@ export async function GET() {
       PK: `USER#${testUserId}`,
       SK: `ONBOARDING#${testSessionId}`,
       conversationHistory: [
-        { role: 'user', content: 'Test message', timestamp: new Date().toISOString() }
+        { role: 'user' as const, content: 'Test message', timestamp: new Date().toISOString() }
       ],
       currentStep: 'greeting',
       extractedData: {},
@@ -30,11 +30,17 @@ export async function GET() {
     console.log('Updating session...');
     await dynamoService.updateOnboardingSession(testUserId, testSessionId, {
       conversationHistory: [
-        { role: 'user', content: 'Test message', timestamp: new Date().toISOString() },
-        { role: 'assistant', content: 'Test response', timestamp: new Date().toISOString() }
+        { role: 'user' as const, content: 'Test message', timestamp: new Date().toISOString() },
+        { role: 'assistant' as const, content: 'Test response', timestamp: new Date().toISOString() }
       ],
       currentStep: 'emotions',
-      extractedData: { test: 'value' },
+      extractedData: {
+        emotions: ['Confident'],
+        archetype: [],
+        essence: [],
+        lifestyle: [],
+        values: []
+      },
       isComplete: false,
     });
     console.log('Session updated successfully');

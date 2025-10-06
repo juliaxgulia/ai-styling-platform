@@ -26,10 +26,16 @@ export async function GET() {
     // Test 2: Update session
     await dynamoService.updateOnboardingSession(testUserId, testSessionId, {
       conversationHistory: [
-        { role: 'user', content: 'Hello', timestamp: new Date().toISOString() }
+        { role: 'user' as const, content: 'Hello', timestamp: new Date().toISOString() }
       ],
       currentStep: 'emotions',
-      extractedData: { test: 'value' },
+      extractedData: {
+        emotions: ['Confident'],
+        archetype: [],
+        essence: [],
+        lifestyle: [],
+        values: []
+      },
       isComplete: false,
     });
     console.log('✅ Session updated');
